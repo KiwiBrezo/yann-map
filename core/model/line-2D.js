@@ -1,0 +1,3 @@
+class Line2D {
+
+}
