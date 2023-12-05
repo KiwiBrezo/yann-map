@@ -1,21 +1,34 @@
 const path = require("path")
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
-    entry: path.resolve(__dirname, "core/index.js"),
+    entry: {
+        "yann-map.js" : path.resolve(__dirname, "src/index.js"),
+        "yann-map.min.js" : path.resolve(__dirname, "src/index.js"),
+    },
     output: {
-        path: path.resolve(__dirname, "dist"),
-        filename: "yann-map-bundle.js",
-        library: "$",
-        libraryTarget: "umd",
+        path: path.resolve(__dirname, "dist/dev"),
+        filename: "[name]",
+    },
+    optimization:{
+        minimize: true,     // <---- disables uglify.
+        minimizer: [new TerserPlugin({
+            include: /\.min\.js$/
+        })]
     },
     module: {
         rules: [
             {
-                test: /\.(js)$/,
+                test: /\.?js$/,
                 exclude: /node_modules/,
-                use: "babel-loader",
-            },
-        ],
+                use: {
+                    loader: "babel-loader",
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            }
+        ]
     },
     mode: "development",
 }

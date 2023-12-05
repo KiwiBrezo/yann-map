@@ -1,1 +1,1 @@
-Yet another not needed map library (more simple than leaflet)
+## Yet another not needed map library

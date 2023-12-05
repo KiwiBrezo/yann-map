@@ -1,3 +1,0 @@
-class Polygon2D {
-
-}
